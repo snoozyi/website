@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sleepy Souls • Shifu</title>
+  <meta name="description" content="Sleepy Souls / Shifu — furry, chaos gremlin, system breaker, and creator of ArKit." />
+  <style>
+    :root {
+      --bg: #0a0b12;
+      --panel: rgba(20, 22, 34, 0.72);
+      --panel-strong: rgba(26, 29, 46, 0.92);
+      --text: #f4f1ff;
+      --muted: #b8b3cf;
+      --pink: #f1a8d8;
+      --lavender: #c8b6ff;
+      --purple: #8c6cff;
+      --line: rgba(255,255,255,0.09);
+      --shadow: 0 20px 60px rgba(0,0,0,0.45);
+      --radius: 28px;
+      --max: 1120px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(241,168,216,0.18), transparent 28%),
+        radial-gradient(circle at top right, rgba(140,108,255,0.18), transparent 24%),
+        linear-gradient(180deg, #0a0b12 0%, #090910 100%);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .wrap {
+      width: min(calc(100% - 32px), var(--max));
+      margin: 0 auto;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(16px);
+      background: rgba(10, 11, 18, 0.55);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+      gap: 12px;
+    }
+
+    .brand {
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--pink), var(--purple));
+      box-shadow: 0 0 22px rgba(241,168,216,0.7);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      padding: 10px 14px;
+      border-radius: 999px;
+      color: var(--muted);
+      border: 1px solid transparent;
+      transition: 180ms ease;
+    }
+
+    .nav-links a:hover {
+      border-color: var(--line);
+      color: var(--text);
+      background: rgba(255,255,255,0.04);
+    }
+
+    .hero {
+      padding: 68px 0 28px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .hero-main {
+      padding: 34px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-main::after {
+      content: "";
+      position: absolute;
+      inset: auto -60px -60px auto;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(241,168,216,0.26), transparent 70%);
+      pointer-events: none;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.03);
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    h1 {
+      margin: 0 0 14px;
+      font-size: clamp(2.5rem, 5vw, 4.6rem);
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+    }
+
+    .gradient {
+      background: linear-gradient(135deg, var(--text), var(--lavender), var(--pink));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .subtitle {
+      margin: 0;
+      max-width: 58ch;
+      font-size: 1.05rem;
+      color: var(--muted);
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 13px 18px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      transition: 180ms ease;
+      font-weight: 700;
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, rgba(241,168,216,0.22), rgba(140,108,255,0.22));
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,0.16);
+      background-color: rgba(255,255,255,0.06);
+    }
+
+    .profile {
+      padding: 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      gap: 16px;
+    }
+
+    .avatar {
+      width: min(100%, 280px);
+      aspect-ratio: 1;
+      border-radius: 999px;
+      border: 2px solid rgba(255,255,255,0.12);
+      overflow: hidden;
+      background: linear-gradient(135deg, rgba(241,168,216,0.18), rgba(140,108,255,0.18));
+      box-shadow: 0 16px 40px rgba(0,0,0,0.35);
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .tagline {
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    section {
+      padding: 18px 0;
+    }
+
+    .section-title {
+      margin: 0 0 18px;
+      font-size: 1.5rem;
+      letter-spacing: -0.03em;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .mini-card {
+      padding: 22px;
+    }
+
+    .mini-card h3 {
+      margin: 0 0 8px;
+      font-size: 1.1rem;
+    }
+
+    .mini-card p,
+    .mini-card li,
+    .project p {
+      color: var(--muted);
+    }
+
+    .list {
+      margin: 12px 0 0;
+      padding-left: 18px;
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .project {
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(241,168,216,0.05), rgba(140,108,255,0.03));
+      pointer-events: none;
+    }
+
+    .project-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+      position: relative;
+    }
+
+    .badge {
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.85rem;
+      white-space: nowrap;
+    }
+
+    .project h3 {
+      margin: 0;
+      font-size: 1.15rem;
+      position: relative;
+    }
+
+    .footer {
+      padding: 30px 0 56px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.95rem;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--line);
+      color: var(--muted);
+    }
+
+    .status::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: #89ffad;
+      box-shadow: 0 0 14px rgba(137,255,173,0.8);
+    }
+
+    @media (max-width: 920px) {
+      .hero-grid,
+      .grid-3,
+      .projects {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 36px;
+      }
+
+      .hero-main,
+      .profile,
+      .mini-card,
+      .project {
+        padding: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="#top">
+        <span class="brand-dot"></span>
+        <span>Sleepy Souls</span>
+      </a>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#links">Links</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="top" class="wrap">
+    <section class="hero">
+      <div class="hero-grid">
+        <article class="card hero-main">
+          <div class="pill-row">
+            <span class="pill">💤 sleepy</span>
+            <span class="pill">🩶 gray hoodie</span>
+            <span class="pill">🐧 arch linux</span>
+            <span class="pill">💥 software breaker</span>
+          </div>
+
+          <h1>
+            hi, i'm <span class="gradient">shifu</span>
+          </h1>
+          <p class="subtitle">
+            furry. chaos gremlin. system tinkerer. builder of weird things. breaker of normal things.
+            this is my little corner of the internet for projects, socials, and whatever else escapes containment.
+          </p>
+
+          <div class="cta-row">
+            <a class="btn primary" href="#projects">✨ view projects</a>
+            <a class="btn" href="https://github.com/snoozyi" target="_blank" rel="noreferrer">🐙 github</a>
+            <a class="btn" href="https://discord.id/?prefill=809893424131211325" target="_blank" rel="noreferrer">💌 discord</a>
+          </div>
+        </article>
+
+        <aside class="card profile">
+          <div class="avatar">
+            <img src="https://placehold.co/800x800/png" alt="Profile avatar" />
+          </div>
+          <div>
+            <strong>@snoozyi</strong>
+            <div class="tagline">permanently fused with a gray hoodie :3</div>
+          </div>
+          <div class="status">usually making something cursed</div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="about">
+      <h2 class="section-title">about</h2>
+      <div class="grid-3">
+        <article class="card mini-card">
+          <h3>🌙 bio</h3>
+          <p>
+            i like experimenting with systems, breaking software to see what happens, and learning by doing.
+            hackintosh, jailbreaks, linux, low-level weirdness, and random troubleshooting rabbit holes are all fair game.
+          </p>
+        </article>
+
+        <article class="card mini-card">
+          <h3>🧠 current interests</h3>
+          <ul class="list">
+            <li>cloudflare pages / workers</li>
+            <li>python, haskell, c++</li>
+            <li>linux and system chaos</li>
+            <li>web experiments</li>
+          </ul>
+        </article>
+
+        <article class="card mini-card" id="links">
+          <h3>🔗 socials</h3>
+          <ul class="list">
+            <li><a href="https://github.com/snoozyi" target="_blank" rel="noreferrer">GitHub</a></li>
+            <li><a href="https://discord.id/?prefill=809893424131211325" target="_blank" rel="noreferrer">Discord</a></li>
+            <li><a href="#">Strawpage</a></li>
+            <li><a href="#">Other link</a></li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2 class="section-title">projects</h2>
+      <div class="projects">
+        <article class="card project">
+          <div class="project-top">
+            <h3>ArKit</h3>
+            <span class="badge">lore / universe</span>
+          </div>
+          <p>
+            a multi-layered creative universe with characters, timelines, factions, system logs, alert messages, and a whole lot of controlled narrative chaos.
+          </p>
+        </article>
+
+        <article class="card project">
+          <div class="project-top">
+            <h3>Sleepy Tech Chaos</h3>
+            <span class="badge">systems / experiments</span>
+          </div>
+          <p>
+            hackintosh work, linux weirdness, payload testing, troubleshooting experiments, and whatever else i can get my hands on without immediately bricking it.
+          </p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap footer">
+    built with sleep deprivation, hoodie energy, and mild software violence.
+  </footer>
+</body>
+</html>
